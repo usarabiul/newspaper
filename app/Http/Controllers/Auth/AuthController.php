@@ -44,8 +44,8 @@ class AuthController extends Controller
             //Login Post Action
 
             $check = $r->validate([
-            'username' => 'required|max:100',
-            'password' => 'required|max:50'
+                'username' => 'required|max:100',
+                'password' => 'required|min:4'
             ]);
 
             if(!$check){
