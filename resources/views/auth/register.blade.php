@@ -1,4 +1,4 @@
-@extends(welcomeTheme().'layouts.app') 
+@extends('auth.app') 
 @section('title')
 <title>{{websiteTitle('Register')}}</title>
 @endsection 
@@ -13,85 +13,75 @@
 @endsection 
 @push('css')
 <style>
-    .lostpassheader{
-        text-align:center;   
-    }
-    .login-part {
-        border: 1px solid #d5d5d5;
-        padding: 25px;
-        border-radius: 10px;
-    }
 </style>
 @endpush 
 
 @section('contents')
-<br>
-<div class="lostregis">
-	<div class="lostpassheader">
-		<h3>My Account</h3>
-		<p>Sign-Up</p>
-	</div>
-	<div class="container">
-	    <div class="row">
-	        <div class="col-md-3"></div>
-	        <div class="col-md-6">
-	            <div class="login-part">
-            		<h4>REGISTER</h4>
-            		@include(welcomeTheme().'alerts')
-            		<form action="{{route('register')}}" method="post">
-            		    @csrf
-            			<label for="name">Username *</label>
-            			<div class="form-group form-group-section">
-            			    <input type="name" name="name" value="{{old('name')}}" class="form-control control-section" placeholder="Your Name" required="">
-            			    @if($errors->has('name'))
-                                <span style="color:red;display: block;">{{ $errors->first('name') }}</span>
-                            @endif
-            			</div>
-            
-            			<label for="email">Email address *</label>
-            			<div class="form-group form-group-section">
-            			    <input type="email" name="email" value="{{old('email')}}" class="form-control control-section" placeholder="Email Address" required="">
-            			    @if($errors->has('email'))
-                                <span style="color:red;display: block;">{{ $errors->first('email') }}</span>
-                            @endif
-            			</div>
-            
-            			<label for="password">Password *</label>
-            			<div class="form-group form-group-section">
-            				<div class="input-group">
-								<input type="password" class="form-control control-section password" id="password" name="password" placeholder="Enter Password" required="" />
-								<div class="input-group-append">
-									<span class="input-group-text showPassword" style="cursor: pointer;"><i class="fa fa-eye-slash"></i></span>
+
+<div class="authincation">
+	<div class="container h-100">
+		<div class="row justify-content-center h-100 align-items-center">
+			<div class="col-md-6">
+				<div class="authincation-content">
+					<div class="row no-gutters">
+						<div class="col-xl-12">
+							<div class="auth-form">
+								<div class="text-center mb-3">
+									<a href="{{route('index')}}"><img src="{{asset(general()->logo())}}" alt="{{general()->title}}"></a>
+								</div>
+								@include(adminTheme().'alerts')
+								<h4 class="text-center mb-4">Sign up your account</h4>
+								<form action="{{route('register')}}" method="post">
+									@csrf
+									<div class="form-group mb-3">
+										<label class="form-label">Name</label>
+										<input type="text" class="form-control {{$errors->has('name')?'is-invalid':''}}" value="{{old('name')}}" name="name" placeholder="Enter name">
+										@if ($errors->has('name'))
+										<div class="invalid-feedback">{{ $errors->first('name') }}</div>
+										@endif
+									</div>
+									<div class="form-group mb-3">
+										<label class="form-label">Email</label>
+										<input type="email" class="form-control {{$errors->has('username')?'is-invalid':''}}" value="{{old('username')}}" name="username" placeholder="Enter email address">
+										@if ($errors->has('username'))
+										<div class="invalid-feedback">{{ $errors->first('username') }}</div>
+										@endif
+									</div>
+									<div class="form-group mb-3">
+										<label class="form-label">Password</label>
+										<div class="position-relative">
+											<input type="password" id="dz-password" name="password" class="form-control" value="{{old('password')}}" placeholder="Enter Password">
+											<span class="show-pass eye">
+												<i class="fa fa-eye-slash"></i>
+												<i class="fa fa-eye"></i>
+											</span>
+										</div>
+										@if ($errors->has('password'))
+										<div class="invalid-feedback d-block">{{ $errors->first('password') }}</div>
+										@endif
+									</div>
+									<div class="mt-4 mb-3 align-items-center">
+										<p>
+											
+										Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="#">Privacy Policy</a>
+										</p>
+									</div>
+									<div class="text-center">
+										<button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+									</div>
+								</form>
+								<div class="new-account mt-3">
+									<p class="">Already Have An Account? <a class="" href="{{route('login')}}">Sign in</a></p>
 								</div>
 							</div>
-            			    @if($errors->has('password'))
-                                <span style="color:red;display: block;">{{ $errors->first('password') }}</span>
-                            @endif
-            			</div>
-            
-            			<p>
-            				Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our
-            			</p>
-            			<a href="#">Privacy Policy</a>
-            			<div>
-            				<button type="submit" class="btn submitbutton">REGISTER</button>
-            			</div>
-            		</form>
-            		
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{{route('login')}}">Alrady Have An Account? <span>Log-In</span></a>
-                        </div>
-                    </div>
-            		
-        		</div>
-	        </div>
-	        <div class="col-md-3"></div>
-	    </div>
-
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-<br>
+
 @endsection 
 @push('js') 
 @endpush

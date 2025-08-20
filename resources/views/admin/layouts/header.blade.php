@@ -1,5 +1,5 @@
 <div class="nav-header">
-    <a href="index.html" class="brand-logo">
+    <a href="{{route('index')}}" class="brand-logo">
         <img class="logo-abbr" src="{{asset(general()->favicon())}}" alt="{{general()->title}}" />
         <img class="logo-compact" src="{{asset(general()->favicon())}}" alt="{{general()->title}}" />
         <span class="brand-title">BNS</span>
