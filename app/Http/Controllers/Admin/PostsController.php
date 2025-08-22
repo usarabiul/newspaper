@@ -425,8 +425,6 @@ class PostsController extends Controller
 
     public function postsCommentsAction(Request $r,$action,$id){
 
-      
-
       //Add Comment Post  Start
       if($action=='create'){
         $post =Post::where('type',1)->find($id);
@@ -680,7 +678,8 @@ class PostsController extends Controller
           uploadFile($file,$src,$srcType,$fileUse,$author);
         }
         ///////Banner Uploard End////////////
-        $slug = Str::slug($r->name);
+        $category->auto_slug = $r->slug ? true : false;
+        $slug = Str::slug($r->slug ?: $r->name);
         if (!$slug) {
             $category->slug = $category->id;
         } else {

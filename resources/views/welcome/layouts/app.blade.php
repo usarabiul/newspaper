@@ -18,23 +18,24 @@
         
         <link rel="stylesheet" type="text/css" href="{{asset(assetLink().'/css/demo.css')}}" />
         
+        <!-- Google Font CDN -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/themes/smoothness/jquery-ui.min.css" integrity="sha512-hQrNVZL4jUAHcqbF25UiEFZ/NGCbhAWI9aVAUfI5H+sG17C1Lc4Tm4HpU5A69E1jquKr3f0LnxD3uzfoCj/koQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,600,700" />
-
-        <!-- Bootstrap CS CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-        <!-- Font Awesome CSS CDN-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <!-- Fancybox CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet" />
+        
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
+        
+        <!-- Bootstrap Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+        <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
         
         <!-- Slick Slider CSS CDN-->
         <link rel="stylesheet" type="text/css" href="{{asset(assetLink().'/css/slick.css')}}" />
@@ -46,7 +47,11 @@
         <link rel="stylesheet" href="{{asset(assetLink().'/css/metisMenu.css')}}" />
         
         <link rel="stylesheet" type="text/css" href="{{asset(assetLink().'/css/style.css')}}" />
-        
+        <style>
+            body {
+                font-family: 'SolaimanLipi', sans-serif;
+            }
+        </style>
         @stack('css')
     </head>
     
@@ -56,8 +61,10 @@
         @include(welcomeTheme().'layouts.header')
 
         <!--Main Content Section Start-->
-        <div class="main-content">
-        @yield('contents')
+        <div class="main-container">
+            <div class="container">
+                @yield('contents')
+            </div>
         </div>
         <!--Main Content Section End-->
         
@@ -65,55 +72,100 @@
         @include(welcomeTheme().'layouts.footer')
         
         
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="{{asset(assetLink().'/js/hc-offcanvas-nav.js')}}"></script>
-        
-        <!-- Bootstrap Script  CDN-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <!--iconify Script CDN-->
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-        <!-- Sweet Alert CDN -->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-        <!-- Metis Menus Script -->
         <script src="{{asset(assetLink().'/js/metisMenu.min.js')}}"></script>
-
-        <!-- Slick slider CDN -->
         <script type="text/javascript" src="{{asset(assetLink().'/js/slick.min.js')}}"></script>
-
+        
+        <!-- Moment.js for Gregorian/Hijri -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js"></script>
+        
+        <!-- Bangla Date -->
+        <script src="https://cdn.jsdelivr.net/gh/AhmedMRaihan/BanglaDateJS@master/src/buetDateTime.js"></script>
+        
         <!-- Custom Script for this Design -->
         <script src="{{asset(assetLink().'/js/myjquery.js')}}"></script>
 
         <script>
             $(document).ready(function(){
+                $('.mobile-search-icon').click(function() {
+                    $('#mobileSearchOverlay').fadeIn();
+                });
+        
+                // Close mobile search overlay
+                $('#closeMobileSearch').click(function() {
+                    $('#mobileSearchOverlay').fadeOut();
+                });
+                
+                $(function() {
+                    $("#datepicker").datepicker({
+                        maxDate: 0,
+                        dateFormat: "yy-mm-dd", // important to format the date correctly
+                        onSelect: function(dateText, inst) {
+                            console.log("Selected date: " + dateText);
+                            // build the URL and redirect
+                            var formattedDate = dateText.replace(/\//g, '/'); // just to be sure
+                            window.location.href = '/archive/' + formattedDate;
+                        }
+                    });
+                });
+                  
+                // Gregorian date
+                const englishDate = moment().format('dddd. DD MMMM YYYY');
+                console.log(englishDate);
+                
+        
+                // Bangla Date (using buetDateTime.js)
+                const bd = new buetDateConverter(new Date());
+                const bangla = bd.convert("j F Y");
+    
+                // Combine Bangla date in English
+                const banglaDate = bangla;
+                
+                // Hijri date
+                const hijriDate = moment().format('iD iMMMM iYYYY');
+        
+                // Final output
+                const output = `${englishDate}<br>${banglaDate}, ${hijriDate}`;
+        
+                // Update HTML
+                $('.today').html(output);
 
-            $("#division").on("change", function(){
-                var id = $(this).val();
-                  if(id==''){
-                   $('#district').empty().append('<option value="">No District</option>');
-                   $('#city').empty().append('<option value="">No City</option>');
-                  }
-                  var url ='{{url('geo/filter')}}' + '/'+id;
-                  $.get(url,function(data){
-                    $('#district').empty().append(data.geoData);
+
+
+
+
+                $("#division").on("change", function(){
+                    var id = $(this).val();
+                    if(id==''){
+                    $('#district').empty().append('<option value="">No District</option>');
                     $('#city').empty().append('<option value="">No City</option>');
-                  });   
-            });
+                    }
+                    var url ='{{url('geo/filter')}}' + '/'+id;
+                    $.get(url,function(data){
+                        $('#district').empty().append(data.geoData);
+                        $('#city').empty().append('<option value="">No City</option>');
+                    });   
+                });
 
-            $("#district").on("change", function(){
-                var id = $(this).val();
-                  if(id==''){
-                   $('#city').empty().append('<option value="">No City</option>');
-                  }
-                  var url ='{{url('geo/filter')}}' + '/'+id;
-                  $.get(url,function(data){
-                    $('#city').empty().append(data.geoData);  
-                  });   
+                $("#district").on("change", function(){
+                    var id = $(this).val();
+                    if(id==''){
+                    $('#city').empty().append('<option value="">No City</option>');
+                    }
+                    var url ='{{url('geo/filter')}}' + '/'+id;
+                    $.get(url,function(data){
+                        $('#city').empty().append(data.geoData);  
+                    });   
+                });
+                
             });
-            
-        });
         </script>
         
         <script>
@@ -174,7 +226,6 @@
         </script>
         
         @stack('js')
-        
         
     </body>
 </html>

@@ -13,18 +13,18 @@ $(document).ready(function(){
 
   var header = $('.sticky-header');
   var logo = $('.top-header');
-  // var middle = $('.main-content');
+  var middle = $('.middle-header');
     var win = $(window);
     win.on('scroll', function() {
         var scroll = win.scrollTop();
-        if (scroll < 50){
+        if (scroll < 240){
             header.removeClass('stick');
-            logo.removeClass('hideSection');
-            // middle.removeClass('stickySpace');
+            logo.removeClass('hidesection');
+            middle.removeClass('hidesection');
         } else {
             header.addClass('stick');
-            logo.addClass('hideSection');
-            // middle.addClass('stickySpace');
+            logo.addClass('hidesection');
+            middle.addClass('hidesection');
         }
     });
 

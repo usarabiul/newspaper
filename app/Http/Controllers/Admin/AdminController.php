@@ -2766,11 +2766,9 @@ public function userRoles(Request $r){
         if($r->hasFile('logo')){
 
           $file=$r->logo;
-
           if(File::exists($general->logo)){
                 File::delete($general->logo);
           }
-
           $name = basename($file->getClientOriginalName(), '.'.$file->getClientOriginalExtension());
           $fullName = basename($file->getClientOriginalName());
           $ext =strtolower($file->getClientOriginalExtension());
@@ -2782,7 +2780,7 @@ public function userRoles(Request $r){
 
           $img =time().'.'.uniqid().'.'.$file->getClientOriginalExtension();
           $path ="medies/".$folder;
-          $fullPath ="public/medies/".$folder.'/'.$img;
+          $fullPath ="medies/".$folder.'/'.$img;
 
           $file->move(public_path($path), $img);
           $general->logo =$fullPath;
@@ -2810,7 +2808,7 @@ public function userRoles(Request $r){
 
             $img =time().'.'.uniqid().'.'.$file->getClientOriginalExtension();
             $path ="medies/".$folder;
-            $fullPath ="public/medies/".$folder.'/'.$img;
+            $fullPath ="medies/".$folder.'/'.$img;
             
             $file->move(public_path($path), $img);
             $general->favicon =$fullPath;
@@ -2820,9 +2818,8 @@ public function userRoles(Request $r){
         if($r->hasFile('banner')){
 
             $file=$r->banner;
-
             if(File::exists($general->banner)){
-                  File::delete($general->banner);
+                File::delete($general->banner);
             }
 
             $name = basename($file->getClientOriginalName(), '.'.$file->getClientOriginalExtension());
@@ -2836,7 +2833,7 @@ public function userRoles(Request $r){
 
             $img =time().'.'.uniqid().'.'.$file->getClientOriginalExtension();
             $path ="medies/".$folder;
-            $fullPath ="public/medies/".$folder.'/'.$img;
+            $fullPath ="medies/".$folder.'/'.$img;
             
             $file->move(public_path($path), $img);
             $general->banner =$fullPath;

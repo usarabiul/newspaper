@@ -105,28 +105,66 @@ class WelcomeController extends Controller
     }
 
     public function index(Request $r){
-        
-    //   Artisan::call('cache:clear');
-    //   Artisan::call('config:clear');
-    //   Artisan::call('config:cache');
-    //   Artisan::call('view:clear');
-    //   Artisan::call('route:clear');
-    //   Artisan::call('clear-compiled');
-    // create new image instance
-
+      
       $latestServices =Post::where('type',3)
       ->where('status','active')
       ->whereDate('created_at','<=',Carbon::now())
       ->limit(3)
       ->get(['id','name','slug','short_description']);
 
-      $latestPosts =Post::where('type',1)
+      $latestPosts =Post::where('type',1)->latest()
       ->where('status','active')
       ->whereDate('created_at','<=',Carbon::now())
-      ->limit(3)
-      ->get(['id','name','slug','addedby_id','created_at']);
-     
-    	return view(welcomeTheme().'index',compact('latestServices','latestPosts'));
+      ->limit(8)
+      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+      
+      $polularPosts =Post::where('type',1)
+      ->where('status','active')
+      ->whereDate('created_at','<=',Carbon::now())
+      ->inRandomOrder()
+      ->limit(8)
+      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+      
+        $ctgThree =Attribute::whereIn('id',['2','6','7'])->where('status','active')->get();
+        collect($ctgThree)->map(function($item){
+            $item->news  =Post::where('type',1)
+                  ->where('status','active')
+                  ->whereDate('created_at','<=',Carbon::now())
+                  ->inRandomOrder()
+                  ->limit(5)
+                  ->get(['id','name','slug']);
+            return $item;
+        });
+        $ctgFour =Attribute::whereIn('id',['10','11','5',3])->where('status','active')->get();
+        collect($ctgFour)->map(function($item){
+            $item->news =Post::where('type',1)
+                  ->where('status','active')
+                  ->whereDate('created_at','<=',Carbon::now())
+                  ->inRandomOrder()
+                  ->limit(5)
+                  ->get(['id','name','slug']);
+            return $item;
+        });
+        
+        $ctgOne =Attribute::whereIn('id',[4])->where('status','active')->get();
+        collect($ctgOne)->map(function($item){
+            $item->news =Post::where('type',1)
+                  ->where('status','active')
+                  ->whereDate('created_at','<=',Carbon::now())
+                  ->inRandomOrder()
+                  ->limit(5)
+                  ->get(['id','name','slug']);
+            return $item;
+        });
+        
+        $gallery =Post::where('type',1)
+                  ->where('status','active')
+                  ->whereDate('created_at','<=',Carbon::now())
+                  ->inRandomOrder()
+                  ->limit(5)
+                  ->get(['id','name','slug']);
+        
+    	return view(welcomeTheme().'index',compact('latestServices','latestPosts','ctgThree','ctgFour','ctgOne','gallery','polularPosts'));
     }
 
     public function serviceCategory($slug){

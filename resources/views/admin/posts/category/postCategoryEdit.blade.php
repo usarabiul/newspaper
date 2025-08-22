@@ -38,12 +38,23 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-1">
                             <label class="form-label">Category Name(*) </label>
                             <input type="text" class="form-control {{$errors->has('name')?'error':''}}" name="name" placeholder="Enter Category Name" value="{{$category->name?:old('name')}}" required="" />
                             @if ($errors->has('name'))
                             <p style="color: red; margin: 0; font-size: 10px;">{{ $errors->first('name') }}</p>
                             @endif
+                        </div>
+                        <div class="mb-3 input-group">
+                            <label class="slugEdit" for="slug" style="color: #3F51B5;cursor: pointer;width: 130px;padding: 3px;"><span>{{$category->auto_slug?'Custom Slug':'Auto Slug'}} </span> <i class="fa fa-edit"></i></label>
+                            <input type="text" 
+                            class="slugEditData form-control {{$errors->has('slug')?'error':''}}"
+                            placeholder="Category Slug" value="{{$category->slug?:old('slug')}}"
+                            @if($category->auto_slug) 
+                                name="slug"
+                                style="display:block;"
+                            @endif
+                            />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Parent Category</label>

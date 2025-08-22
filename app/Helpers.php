@@ -95,6 +95,58 @@ function en2bnMonth($month){
   return $en_number;
 }
 
+function formatDateOutputBN($date, $format = 'd F Y, h:i A'){
+    $carbon = Carbon::parse($date);
+
+    $days = [
+        'Sunday'    => 'রবিবার',
+        'Monday'    => 'সোমবার',
+        'Tuesday'   => 'মঙ্গলবার',
+        'Wednesday' => 'বুধবার',
+        'Thursday'  => 'বৃহস্পতিবার',
+        'Friday'    => 'শুক্রবার',
+        'Saturday'  => 'শনিবার',
+    ];
+
+    $months = [
+        'January'   => 'জানুয়ারি',
+        'February'  => 'ফেব্রুয়ারি',
+        'March'     => 'মার্চ',
+        'April'     => 'এপ্রিল',
+        'May'       => 'মে',
+        'June'      => 'জুন',
+        'July'      => 'জুলাই',
+        'August'    => 'আগস্ট',
+        'September' => 'সেপ্টেম্বর',
+        'October'   => 'অক্টোবর',
+        'November'  => 'নভেম্বর',
+        'December'  => 'ডিসেম্বর',
+    ];
+
+    $bnNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
+    // Format date and time
+    $formatted = $carbon->format($format); // example: 25 April 2025, 10:08 PM
+
+    // Replace day names
+    foreach ($days as $en => $bn) {
+        $formatted = str_replace($en, $bn, $formatted);
+    }
+
+    // Replace month names
+    foreach ($months as $en => $bn) {
+        $formatted = str_replace($en, $bn, $formatted);
+    }
+
+    // Replace AM/PM with Bangla
+    $formatted = str_replace(['AM', 'PM'], ['এএম', 'পিএম'], $formatted);
+
+    // Replace digits with Bangla digits
+    $formatted = str_replace(range(0, 10), $bnNumbers, $formatted);
+
+    return $formatted;
+}
+
 function priceFormat($amount=0)
 {
   $formatAmount ='';

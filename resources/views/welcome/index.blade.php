@@ -27,247 +27,309 @@
 @endpush 
 
 @section('contents')
-
-<!--Slider Part Include Start-->
-@include(welcomeTheme().'layouts.slider')
-<div class="serviceFeatured">
-    <div class="container">
-        <div class="row" style="margin:0 -10px;">
-            <div class="col-md-4" style="padding:10px;">
-                <div class="featuredGrid" style="background-image: url({{asset(assetLink().'/images/financial__item-bg.png')}});">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="{{asset(assetLink().'/images/growth.svg')}}" alt="featured">
+<div class="heading-news-area">
+    <div class="row">
+        <div class="col-md-9 ">
+            <div class="row" style="margin:0 -10px;">
+                <div class="col-lg-7" style="padding:10px;">
+                    @if($firstNews =$latestPosts->first())
+                    <div class="top-heading-news">
+                        <div class="image">
+                            <a href="{{route('blogView',$firstNews->slug?:Str::slug($firstNews->name))}}">
+                                <img src="{{asset($firstNews->image())}}" alt="{{$firstNews->name}}">
+                            </a>
                         </div>
-                        <div class="col-9 p-0">
-                            <h5>Business Strategy</h5>
+                        <div class="text">
+                            <h3><a href="{{route('blogView',$firstNews->slug?:Str::slug($firstNews->name))}}">{{$firstNews->name}}</a></h3>
+                            @if($firstNews->short_description)
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.
+                               {{Str::limit($firstNews->short_description,200)}}
                             </p>
+                            @endif
                         </div>
                     </div>
+                    @endif
+                </div>
+                <div class="col-lg-5" style="padding:10px;">
+                     <div class="heading-news-list">
+                            <ul>
+                                @foreach($latestPosts->skip(1) as $post)
+                                <li>
+                                    <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                         <img src="{{asset($post->image())}}" alt="{{$post->name}}">
+                                         <span>{{$post->name}}</span>
+                                    </a> 
+                                </li>
+                                @endforeach
+                            </ul>
+                     </div>
                 </div>
             </div>
-            <div class="col-md-4" style="padding:10px;">
-                <div class="featuredGrid" style="background-image: url({{asset(assetLink().'/images/financial__item-bg.png')}});">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="{{asset(assetLink().'/images/international.svg')}}" alt="featured">
-                        </div>
-                        <div class="col-9 p-0">
-                            <h5>Financial Planning</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div class="col-md-3 ">
+            <div class="sidebarAds">
+                <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/ads.jpg" alt="ads">
             </div>
-            <div class="col-md-4" style="padding:10px;">
-                <div class="featuredGrid" style="background-image: url({{asset(assetLink().'/images/financial__item-bg.png')}});">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="{{asset(assetLink().'/images/planning-1.svg')}}" alt="featured">
-                        </div>
-                        <div class="col-9 p-0">
-                            <h5>International Business</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="videoNews">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/oHFdN4eN7oQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
             </div>
         </div>
     </div>
 </div>
-
-<div class="aboutCompany">
-    <div class="container">
-        <div class="title">
-            <span><img src="{{asset(assetLink().'/images/line.svg')}}" alt="line" > KNOW OUR COMPANY</span>
-            <h1>Our Company Provide High Quality Idea</h1>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="aboutCompanyImage">
+<div class="second-line-area">
+    <div class="row">
+        <div class="col-lg-9 ">
+            <div class="second-area-news">
+                <div class="adsPost">
+                    <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/ads1.jpeg" alt="ads">
+                </div>
+                <div class="heading">
+                    <span class="title">
+                        জাতীয় 
+                    </span>
+                    <a href="" class="viewLink">
+                       আরো
+                        <i class="fa-regular fa-circle-right"></i>
+                    </a>
+                </div>
+                <div class="newsArea">
                     <div class="row">
+                        @foreach($polularPosts as $post)
                         <div class="col-md-6">
-                            <img src="{{asset(assetLink().'/images/our-company-1.png')}}" alt="about company">
-                            <div class="more">
-                               <span style="font-size:35px;"> 23<span style="font-size: 30px;position: absolute;">+</span></span>
-                                <p style="margin: 0;font-size: 24px;">Years Experience</p>
+                            <div class="newsGridv1">
+                                <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                    <img src="{{asset($post->image())}}" alt="{{$post->name}}">
+                                    <span>{{$post->name}}</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6 right">
-                            <img src="{{asset(assetLink().'/images/our-company-2.png')}}" alt="about company">
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div>
-                    <h4>About Company</h4>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    </p>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    </p>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    </p>
-                    @if($page =pageTemplate('About Us'))
-                        <a href="{{route('pageView',$page->slug?:'')}}" class="btn btn-success">View More</a>
+        </div>
+        <div class="col-lg-3">
+            <div class="news-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Latest</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Popular</button>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="new-tab-list">
+                            @foreach($latestPosts as $i=>$post)
+                            <li>
+                                <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                  <span>
+                                      <i class="fa fa-angles-right"></i>
+                                  </span>
+                                  <h4>{{$post->name}}</h4>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                  </div>
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <ul class="new-tab-list">
+                          @foreach($polularPosts as $post)
+                          <li>
+                              <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                  <span>
+                                      <i class="fa fa-angles-right"></i>
+                                  </span>
+                                  <h4>
+                                       {{$post->name}}
+                                  </h4>
+                              </a>
+                          </li>
+                          @endforeach
+                      </ul>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ctg-news-area">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                @foreach($ctgThree as $ctg)
+                <div class="col-lg-4">
+                    <div class="ctgNewsArea">
+                        <div class="heading">
+                            <span class="title">{{$ctg->name}}</span>
+                            <a href="{{route('blogCategory',$ctg->slug?:'no-title')}}" class="viewLink">
+                                আরো
+                                <i class="fa-regular fa-circle-right"></i>
+                            </a>
+                        </div>
+                        <div class="ctgNewsList">
+                            @if($news =$ctg->news->first())
+                            <div class="featured">
+                                <a href="{{route('blogView',$news->slug?:Str::slug($news->name))}}">
+                                    <img src="{{asset($news->image())}}" alt="{{$news->name}}" />
+                                    <span>{{$news->name}}</span>
+                                </a>
+                            </div>
+                            @endif
+                            <ul>
+                                @foreach($ctg->news->skip(1) as $post)
+                                <li>
+                                    <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                        <img src="{{asset($post->image())}}" alt="{{$post->name}}">
+                                        <span>{{$post->name}}</span>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="sidebarAds">
+                <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/adssq.gif" alt="ads">
+            </div>
+            <div class="archivedCalender">
+                <div class="heading">
+                    <span class="title">
+                        Archives News
+                    </span>
+                </div>
+                <div id="datepicker"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="adsPost">
+                <a href="">
+                    <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/adsv.jpeg" alt="sd" />
+                </a>
+            </div>
+        </div>
+        @foreach($ctgFour as $ctg)
+        <div class="col-lg-3">
+            <div class="ctgNewsArea">
+                <div class="heading">
+                    <span class="title">{{$ctg->name}}</span>
+                    <a href="{{route('blogCategory',$ctg->slug?:'no-title')}}" class="viewLink">
+                       আরো
+                    <i class="fa-regular fa-circle-right"></i>
+                    </a>
+                </div>
+                <div class="ctgNewsList">
+                    
+                    @if($news =$ctg->news->first())
+                    <div class="featured">
+                        <a href="{{route('blogView',$news->slug?:Str::slug($news->name))}}">
+                            <img src="{{asset($news->image())}}" alt="{{$news->name}}" />
+                            <span>{{$news->name}}</span>
+                        </a>
+                    </div>
                     @endif
+                    <ul>
+                        @foreach($ctg->news->skip(1) as $post)
+                        <li>
+                            <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                <img src="{{asset($post->image())}}" alt="{{$post->name}}">
+                                <span>{{$post->name}}</span>
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 
-<div class="serviceCompany">
-    <div class="container">
-        <div class="title">
-            <span><img src="{{asset(assetLink().'/images/line.svg')}}" alt="line" > KNOW OUR SERVICES</span>
-            <h1>Our Business Consulting Case Services</h1>
-        </div>
-
-        <div class="row">
-            @foreach($latestServices as $service)
-            <div class="col-md-4">
-                @include(welcomeTheme().'services.includes.serviceGrid')
-            </div>
-            @endforeach
-        </div>
-        @if($page =pageTemplate('Latest Services'))
-        <div class="moreServices">
-            <a href="{{route('pageView',$page->slug?:'')}}" class="btn">View More</a>
-        </div>
-        @endif
-    </div>
-</div>
-
-<div class="contactCompany">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="contactText">
-                    <h2>
-                        Experience The Evolution Of Your Business
-                    </h2>
-                    <p>
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomized words which don't look
-                    </p>
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row m-0" style="border: 1px solid #d4d4d4;">
-                            <div class="col-4 p-3" style="text-align: center;">
-                                <i class="fa fa-phone" style="font-size: 40px;color: white;"></i>
-                            </div>
-                            <div class="col-8 p-2">
-                                <p style="margin: 0;color: white;">Call Us Everyday</p>
-                                <a href="tel:{{general()->mobile}}" style="color: #ef0548;">{{general()->mobile}}</a>
-                            </div>
+<div class="galleryNewSection">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-8">
+                    
+                    <div class="gallerySlider">
+                        <div class="heading">
+                            <span class="title">
+                                গ্যালারি 
+                            </span>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row m-0" style="border: 1px solid #d4d4d4;">
-                            <div class="col-4 p-3" style="text-align: center;">
-                                <i class="fa fa-envelope-o" style="font-size: 40px;color: white;"></i>
+                        <div id="carouselExampleDark" class="carousel carousel-light slide" style="margin-top:10px;">
+                          <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                          </div>
+                          <div class="carousel-inner">
+                            @foreach($gallery as $i=>$gall)
+                            <div class="carousel-item {{$i==0?'active':''}}" data-bs-interval="10000">
+                              <a href="{{route('blogView',$gall->slug?:Str::slug($gall->name))}}"><img src="{{asset($gall->image())}}" class="d-block w-100" alt="{{$gall->name}}"></a>
+                              <div class="carousel-caption d-none d-md-block">
+                                <h5>{{$gall->name}}</h5>
+                              </div>
                             </div>
-                            <div class="col-8 p-2">
-                                <p style="margin: 0;color: white;">Call Us Everyday</p>
-                                <a href="mailto:{{general()->mobile}}" style="color: #ef0548;">{{general()->mobile}}</a>
-                            </div>
+                            @endforeach
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5">
-                <div class="contactFrom">
-                    @if(Session::has('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                        <strong>Success! </strong> {{Session::get('success')}}.
+                @foreach($ctgOne as $ctg)
+                <div class="col-lg-4">
+                    <div class="galleryNewsBar">
+                        <div class="heading">
+                            <span class="title">{{$ctg->name}}</span>
+                            <a href="{{route('blogCategory',$ctg->slug?:'no-title')}}" class="viewLink">
+                               আরো
+                            <i class="fa-regular fa-circle-right"></i>
+                            </a>
+                        </div>
+                        <div class="galleryNewsList">
+                            <ul> 
+                                @foreach($ctg->news as $post)
+                                <li>
+                                    <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                        <img src="{{asset($post->image())}}" alt="{{$post->name}}">
+                                        <span>{{$post->name}}</span>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                    @endif
-                    <form action="{{route('contactMail')}}" method="post">
-                        @csrf
-                        <span><img src="{{asset(assetLink().'/images/line.svg')}}" alt="line" > GET IN TOUCH</span>
-                        <h2>
-                        Free Consultation
-                        </h2>
-                        <div class="form-group form-group-section">
-                            @if ($errors->has('name'))
-                            <p style="color: red; margin: 0; font-size: 10px;">{{ $errors->first('name') }}</p>
-                            @endif
-                            <input type="name" name="name" value="" class="form-control control-section" placeholder="Enter Name" required="" />
-                        </div>
-                        <div class="form-group form-group-section">
-                            @if ($errors->has('email'))
-                            <p style="color: red; margin: 0; font-size: 10px;">{{ $errors->first('email') }}</p>
-                            @endif
-                            <input type="email" name="email" value="" class="form-control control-section" placeholder="Email Address" required="" />
-                        </div>
-                        <div class="form-group form-group-section">
-                            @if ($errors->has('message'))
-                            <p style="color: red; margin: 0; font-size: 10px;">{{ $errors->first('message') }}</p>
-                            @endif
-                            <textarea name="message" rows="5" value="" class="form-control control-section" placeholder="Write Your Massege" required=""></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-contact">Free Consultation <i class="fa fa-angle-double-right"></i></button>
-                    </form>
-                </div>  
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="blogCompany">
-    <div class="container">
-        <div class="title">
-            <span><img src="{{asset(assetLink().'/images/line.svg')}}" alt="line" > BLOG & NEWS</span>
-            <h1>Our Business Latest Blog & News</h1>
-        </div>
-
-        <div class="row">
-            @foreach($latestPosts as $post)
-            <div class="col-md-4">
-                @include(welcomeTheme().'blogs.includes.blogGrid')
-            </div>
-            @endforeach
-        </div>
-        @if($page =pageTemplate('Latest Blog'))
-        <div class="moreServices">
-            <a href="{{route('pageView',$page->slug?:'')}}" class="btn">View More</a>
-        </div>
-        @endif
-    </div>
-</div>
-
-<div class="subscriptionPart">
-    <div class="container">
-        <div id="subscribe-css">
-            <p class="subscribe-note"><span>SUBSCRIBE</span> <span class="itatu">TO</span> OUR NEWSLETTER</p>
-            <div class="subscribe-wrapper">
-                <div class="subscribe-form">
-                    <div id="subscribeemailMsg"></div>
-                    <form
-                        id="subscirbeForm"
-                        data-url="{{route('subscribe')}}"
-                        class="subscribe-form"
-                        method="post"
-                    >
-                        <input name="uri" type="hidden" value="ArlinaDesign" /><input name="loc" type="hidden" value="en_US" /><input autocomplete="off" class="subscribe-css-email-field" id="subscribeEmail" name="email" placeholder="Enter your Email" />
-                        <input class="subscribe-css-email-button subsriberbtm" title="" type="submit" value="submit" />
-                    </form>
                 </div>
+                @endforeach
             </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="sidebarAds">
+                <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/adssq.gif" alt="ads">
+            </div>
+            
+            
         </div>
     </div>
 </div>
+@endsection 
 
-@endsection @push('js') @endpush
+@push('js') 
+
+@endpush
