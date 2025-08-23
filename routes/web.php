@@ -94,17 +94,6 @@ Route::any('/posts/{action}/{id?}',[PostsController::class,'postsAction'])->name
 // Posts Route End
 
 
-
-// Services Categories Route
-Route::get('/services/categories',[AdminController::class,'servicesCategories'])->name('servicesCategories');
-Route::any('/services/categories/{action}/{id?}',[AdminController::class,'servicesCategoriesAction'])->name('servicesCategoriesAction');
-// Services Categories Route End
-
-//Services Management
-Route::get('/services',[AdminController::class,'services'])->name('services');
-Route::any('/services/{action}/{id?}',[AdminController::class,'servicesAction'])->name('servicesAction');
-//Services Management End
-
 // Posts Route
 Route::get('/clients',[AdminController::class,'clients'])->name('clients');
 Route::any('/clients/{action}/{id?}',[AdminController::class,'clientsAction'])->name('clientsAction');
