@@ -40,6 +40,7 @@ Route::group(['middleware'=>['authCheck']], function(){
     Route::post('/log-out',[AuthController::class,'logout'])->name('logout');
 });
 
+Route::get('/{type}/{slug}',[WelcomeController::class,'daynamicLink'])->name('daynamicLink');
 Route::get('/{slug}',[WelcomeController::class,'pageView'])->name('pageView');
 
 //Customer Route Group Start

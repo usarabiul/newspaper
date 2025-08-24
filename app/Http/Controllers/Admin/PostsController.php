@@ -159,8 +159,8 @@ class PostsController extends Controller
             'seo_description' => 'nullable|max:250',
             'catagoryid.*' => 'nullable|numeric',
             'tagskey' => 'nullable|max:500',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp,tiff|max:2048',
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp,tiff|max:2048',
         ]);
 
         $preTagArray =array_map('trim', explode(',', $post->tags));
@@ -643,8 +643,8 @@ class PostsController extends Controller
             'name' => 'required|max:191',
             'seo_title' => 'nullable|max:200',
             'seo_desc' => 'nullable|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp,tiff|max:2048',
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp,tiff|max:2048',
         ]);
 
         $category->name=$r->name;

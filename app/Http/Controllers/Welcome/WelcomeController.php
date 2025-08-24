@@ -167,6 +167,10 @@ class WelcomeController extends Controller
     	return view(welcomeTheme().'index',compact('latestServices','latestPosts','ctgThree','ctgFour','ctgOne','gallery','polularPosts'));
     }
 
+    public function daynamicLink(Request $r,$slug,$slug2=null){
+        return $slug;
+    }
+
     public function serviceCategory($slug){
       $category =Attribute::latest()->where('type',0)->where('slug',$slug)->first();
       if(!$category){
@@ -246,7 +250,7 @@ class WelcomeController extends Controller
         return abort('404');
       }
       $relatedPosts =$post->relatedPosts()->limit(3)->select(['id','name','slug','short_description','addedby_id','created_at'])->get();
-      $comments =$post->postComments()->where('status','active')->select(['id','name','content','created_at'])->paginate(10);
+      $comments =$post->postComments()->where('status','active')->select(['id','name','description','created_at'])->paginate(10);
       return view(welcomeTheme().'blogs.blogView',compact('post','relatedPosts','comments'));
 
     }
