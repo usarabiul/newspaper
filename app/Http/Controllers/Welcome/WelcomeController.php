@@ -250,8 +250,27 @@ class WelcomeController extends Controller
         return abort('404');
       }
       $relatedPosts =$post->relatedPosts()->limit(3)->select(['id','name','slug','short_description','addedby_id','created_at'])->get();
+      $latestPosts =Post::where('type',1)->latest()
+      ->where('status','active')
+      ->whereDate('created_at','<=',Carbon::now())
+      ->limit(8)
+      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+      
+      $polularPosts =Post::where('type',1)
+      ->where('status','active')
+      ->whereDate('created_at','<=',Carbon::now())
+      ->inRandomOrder()
+      ->limit(8)
+      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+
+      $latestPosts =Post::where('type',1)->latest()
+      ->where('status','active')
+      ->whereDate('created_at','<=',Carbon::now())
+      ->limit(8)
+      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+
       $comments =$post->postComments()->where('status','active')->select(['id','name','description','created_at'])->paginate(10);
-      return view(welcomeTheme().'blogs.blogView',compact('post','relatedPosts','comments'));
+      return view(welcomeTheme().'blogs.blogView',compact('post','relatedPosts','latestPosts','polularPosts','comments'));
 
     }
 

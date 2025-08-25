@@ -29,6 +29,7 @@ Route::get('/blog/archives/{slug}',[WelcomeController::class,'blogArchives'])->n
 Route::get('/blog/search',[WelcomeController::class,'blogSearch'])->name('blogSearch');
 Route::get('/blog/{slug}',[WelcomeController::class,'blogView'])->name('blogView');
 Route::post('/blog-comments/{slug}',[WelcomeController::class,'blogComments'])->name('blogComments');
+Route::get('/topic/{tag}',[WelcomeController::class,'topic'])->name('topic');
 
 //Auth Route Start
 Route::group(['middleware'=>['authCheck']], function(){

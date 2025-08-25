@@ -1,55 +1,52 @@
 <div class="blog-sidebar">
-	<div class="blogSearch">
-		<h2 class="widget-title">Search Blog </h2>
-		<form action="{{route('blogSearch')}}">
-			<div class="input-group">
-				<input type="text" name="search" value="{{request()->search}}" class="form-control" placeholder="Search" title="Search for." />
-				<button type="submit" class="btn">
-					<i class="fa fa-search"></i>
-				</button>
-			</div>
-		</form>
-	</div>
+    <div class="sidebarAds">
+        <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/adssq.gif" alt="ads">
+    </div>
 	<hr>
-	<div class="widget_categories">
-		<h2 class="widget-title">Categories </h2>
-		<ul>
-		@foreach(App\Models\Attribute::where('type',6)->where('status','active')->where('parent_id',null)->orderBy('name')->limit(5)->get() as $ctg)
-		<li><a href="{{route('blogCategory',$ctg->slug?:'no-title')}}">{{$ctg->name}} ({{$ctg->activePosts()->count()}})</a></li>
-		@endforeach
-		</ul>
-	</div>
-	<hr>
-	<div class="widget_categories">
-		<h2 class="widget-title">Popular Post </h2>
-		@foreach(App\Models\Post::where('type',1)->where('status','active')->latest()->limit(5)->get() as $lPost)
-		
-		<div class="card mb-3" style="max-width: 540px;">
-			<div class="row g-0 m-0">
-				<div class="col-md-4 p-0">
-				<img src="{{asset($lPost->image())}}" class="img-fluid rounded-start" alt="{{$lPost->name}}">
-				</div>
-				<div class="col-md-8 p-0">
-				<div class="card-body" style="padding:5px 10px;">
-					<a href="{{route('blogView',$lPost->slug?:'no-title')}}">{{$lPost->name}}</a>
-					<p style="margin:0;"><small>{{$lPost->created_at->format('d-m-Y')}}</small></p>
-				</div>
-				</div>
-			</div>
-		</div>
-
-		@endforeach
-
-	</div>
-	<hr>
-	{{--
-	<div class="widget widget_meta">
-		<h2 class="widget-title">Meta Tag</h2>
-		<ul>
-		@foreach(App\Models\Attribute::where('type',7)->where('status','active')->where('parent_id',null)->orderBy('name')->limit(5)->get() as $tag)
-		<li><a href="{{route('blogTag',$tag->slug)}}"> {{$tag->name}} </a></li>
-	 	@endforeach
-		</ul>
-	</div>
---}}
+	<div class="news-tab">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Latest</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Popular</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="new-tab-list">
+                    @foreach($latestPosts as $i=>$post)
+                    <li>
+                        <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                          <span>
+                              <i class="fa fa-angles-right"></i>
+                          </span>
+                          <h4>{{$post->name}}</h4>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <ul class="new-tab-list">
+                  @foreach($polularPosts as $post)
+                  <li>
+                      <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                          <span>
+                              <i class="fa fa-angles-right"></i>
+                          </span>
+                          <h4>
+                               {{$post->name}}
+                          </h4>
+                      </a>
+                  </li>
+                  @endforeach
+              </ul>
+          </div>
+        </div>
+    </div>
+    <hr>
+	<div class="sidebarAds">
+        <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/adssq.gif" alt="ads">
+    </div>
 </div> 

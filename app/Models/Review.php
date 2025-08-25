@@ -60,7 +60,7 @@ class Review extends Model
         if($this->user && $this->user->imageFile){
             return $this->imageFile->file_url;
         }else{
-            return 'public/medies/profile.png';
+            return 'medies/profile.png';
         }
     }
 
