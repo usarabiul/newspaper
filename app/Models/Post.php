@@ -137,7 +137,17 @@ class Post extends Model
     }
 
     //Services Category Functions End
-
+    public function viewLink(){
+        if($this->type==1){
+            $ctg='unkown-category';
+            if($this->postCategories->first()){
+                $ctg =$this->postCategories->first()->slug?:'no-title';
+            }
+            return route('daynamicLink',[$ctg,$this->id]);
+        }else{
+            return  route('daynamicLink',[$this->slug?:'no-slug']);
+        }
+    }
     
     public function user(){
     	return $this->belongsTo(User::class,'addedby_id');

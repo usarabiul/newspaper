@@ -41,8 +41,7 @@ Route::group(['middleware'=>['authCheck']], function(){
     Route::post('/log-out',[AuthController::class,'logout'])->name('logout');
 });
 
-Route::get('/{type}/{slug}',[WelcomeController::class,'daynamicLink'])->name('daynamicLink');
-Route::get('/{slug}',[WelcomeController::class,'pageView'])->name('pageView');
+
 
 //Customer Route Group Start
 Route::group(['prefix'=>'customer', 'as'=>'customer.','middleware'=>['auth','role:customer']], function(){
@@ -149,6 +148,8 @@ Route::post('/setting/{type}/update',[AdminController::class,'settingUpdate'])->
 
 });
 
+Route::get('/{type}/{slug?}',[WelcomeController::class,'daynamicLink'])->name('daynamicLink');
+Route::get('/{slug}',[WelcomeController::class,'pageView'])->name('pageView');
 
 
 // Route::get('/', function () {

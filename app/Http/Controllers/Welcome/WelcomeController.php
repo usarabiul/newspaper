@@ -116,7 +116,7 @@ class WelcomeController extends Controller
       ->where('status','active')
       ->whereDate('created_at','<=',Carbon::now())
       ->limit(8)
-      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+      ->get(['id','name','type','slug','short_description','description','addedby_id','created_at']);
       
       $polularPosts =Post::where('type',1)
       ->where('status','active')
@@ -254,7 +254,7 @@ class WelcomeController extends Controller
       ->where('status','active')
       ->whereDate('created_at','<=',Carbon::now())
       ->limit(8)
-      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+      ->get(['id','name','slug','type','short_description','description','addedby_id','created_at']);
       
       $polularPosts =Post::where('type',1)
       ->where('status','active')
@@ -267,8 +267,7 @@ class WelcomeController extends Controller
       ->where('status','active')
       ->whereDate('created_at','<=',Carbon::now())
       ->limit(8)
-      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
-
+      ->get(['id','name','type','slug','short_description','description','addedby_id','created_at']);
       $comments =$post->postComments()->where('status','active')->select(['id','name','description','created_at'])->paginate(10);
       return view(welcomeTheme().'blogs.blogView',compact('post','relatedPosts','latestPosts','polularPosts','comments'));
 

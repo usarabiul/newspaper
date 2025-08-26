@@ -35,7 +35,7 @@
                     @if($firstNews =$latestPosts->first())
                     <div class="top-heading-news">
                         <div class="image">
-                            <a href="{{route('blogView',$firstNews->slug?:Str::slug($firstNews->name))}}">
+                            <a href="{{$firstNews->viewLink()}}">
                                 <img src="{{asset($firstNews->image())}}" alt="{{$firstNews->name}}">
                             </a>
                         </div>
