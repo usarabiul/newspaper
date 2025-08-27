@@ -91,7 +91,7 @@
                                     <b>SL:</b> {{$i+1}}
                                 </td>
                                 <td>
-                                    <a href="{{route('blogCategory',$category->slug?:'no-title')}}" target="_blank"><b>{{$category->name}}</b></a><br />
+                                    <a href="{{$category->viewLink()}}" target="_blank"><b>{{$category->name}}</b></a><br />
                                     @if($category->status=='active')
                                     <span class="badge badge-success">Active </span>
                                     @elseif($category->status=='inactive')

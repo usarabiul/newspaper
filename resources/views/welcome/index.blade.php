@@ -40,7 +40,7 @@
                             </a>
                         </div>
                         <div class="text">
-                            <h3><a href="{{route('blogView',$firstNews->slug?:Str::slug($firstNews->name))}}">{{$firstNews->name}}</a></h3>
+                            <h3><a href="{{$firstNews->viewLink()}}">{{$firstNews->name}}</a></h3>
                             @if($firstNews->short_description)
                             <p>
                                {{Str::limit($firstNews->short_description,200)}}
@@ -55,7 +55,7 @@
                             <ul>
                                 @foreach($latestPosts->skip(1) as $post)
                                 <li>
-                                    <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                    <a href="{{$post->viewLink()}}">
                                          <img src="{{asset($post->image())}}" alt="{{$post->name}}">
                                          <span>{{$post->name}}</span>
                                     </a> 
@@ -97,7 +97,7 @@
                         @foreach($polularPosts as $post)
                         <div class="col-md-6">
                             <div class="newsGridv1">
-                                <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                <a href="{{$post->viewLink()}}">
                                     <img src="{{asset($post->image())}}" alt="{{$post->name}}">
                                     <span>{{$post->name}}</span>
                                 </a>
@@ -123,7 +123,7 @@
                         <ul class="new-tab-list">
                             @foreach($latestPosts as $i=>$post)
                             <li>
-                                <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                <a href="{{$post->viewLink()}}">
                                   <span>
                                       <i class="fa fa-angles-right"></i>
                                   </span>
@@ -137,7 +137,7 @@
                       <ul class="new-tab-list">
                           @foreach($polularPosts as $post)
                           <li>
-                              <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                              <a href="{{$post->viewLink()}}">
                                   <span>
                                       <i class="fa fa-angles-right"></i>
                                   </span>
@@ -164,7 +164,7 @@
                     <div class="ctgNewsArea">
                         <div class="heading">
                             <span class="title">{{$ctg->name}}</span>
-                            <a href="{{route('blogCategory',$ctg->slug?:'no-title')}}" class="viewLink">
+                            <a href="{{$ctg->viewLink()}}" class="viewLink">
                                 আরো
                                 <i class="fa-regular fa-circle-right"></i>
                             </a>
@@ -172,7 +172,7 @@
                         <div class="ctgNewsList">
                             @if($news =$ctg->news->first())
                             <div class="featured">
-                                <a href="{{route('blogView',$news->slug?:Str::slug($news->name))}}">
+                                <a href="{{$news->viewLink()}}">
                                     <img src="{{asset($news->image())}}" alt="{{$news->name}}" />
                                     <span>{{$news->name}}</span>
                                 </a>
@@ -181,7 +181,7 @@
                             <ul>
                                 @foreach($ctg->news->skip(1) as $post)
                                 <li>
-                                    <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                    <a href="{{$post->viewLink()}}">
                                         <img src="{{asset($post->image())}}" alt="{{$post->name}}">
                                         <span>{{$post->name}}</span>
                                     </a>
@@ -221,7 +221,7 @@
             <div class="ctgNewsArea">
                 <div class="heading">
                     <span class="title">{{$ctg->name}}</span>
-                    <a href="{{route('blogCategory',$ctg->slug?:'no-title')}}" class="viewLink">
+                    <a href="{{$ctg->viewLink()}}" class="viewLink">
                        আরো
                     <i class="fa-regular fa-circle-right"></i>
                     </a>
@@ -230,7 +230,7 @@
                     
                     @if($news =$ctg->news->first())
                     <div class="featured">
-                        <a href="{{route('blogView',$news->slug?:Str::slug($news->name))}}">
+                        <a href="{{$news->viewLink()}}">
                             <img src="{{asset($news->image())}}" alt="{{$news->name}}" />
                             <span>{{$news->name}}</span>
                         </a>
@@ -239,7 +239,7 @@
                     <ul>
                         @foreach($ctg->news->skip(1) as $post)
                         <li>
-                            <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                            <a href="{{$post->viewLink()}}">
                                 <img src="{{asset($post->image())}}" alt="{{$post->name}}">
                                 <span>{{$post->name}}</span>
                             </a>
@@ -274,7 +274,7 @@
                           <div class="carousel-inner">
                             @foreach($gallery as $i=>$gall)
                             <div class="carousel-item {{$i==0?'active':''}}" data-bs-interval="10000">
-                              <a href="{{route('blogView',$gall->slug?:Str::slug($gall->name))}}"><img src="{{asset($gall->image())}}" class="d-block w-100" alt="{{$gall->name}}"></a>
+                              <a href="{{$gall->viewLink()}}"><img src="{{asset($gall->image())}}" class="d-block w-100" alt="{{$gall->name}}"></a>
                               <div class="carousel-caption d-none d-md-block">
                                 <h5>{{$gall->name}}</h5>
                               </div>
@@ -297,7 +297,7 @@
                     <div class="galleryNewsBar">
                         <div class="heading">
                             <span class="title">{{$ctg->name}}</span>
-                            <a href="{{route('blogCategory',$ctg->slug?:'no-title')}}" class="viewLink">
+                            <a href="{{$ctg->viewLink()}}" class="viewLink">
                                আরো
                             <i class="fa-regular fa-circle-right"></i>
                             </a>
@@ -306,7 +306,7 @@
                             <ul> 
                                 @foreach($ctg->news as $post)
                                 <li>
-                                    <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                                    <a href="{{$post->viewLink()}}">
                                         <img src="{{asset($post->image())}}" alt="{{$post->name}}">
                                         <span>{{$post->name}}</span>
                                     </a>

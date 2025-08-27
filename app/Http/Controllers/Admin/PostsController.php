@@ -99,7 +99,7 @@ class PostsController extends Controller
         }
 
       })
-      ->select(['id','name','slug','created_at','addedby_id','status','featured'])
+      ->select(['id','name','slug','type','created_at','addedby_id','status','featured'])
       ->paginate(25)->appends([
         'search'=>$r->search,
         'status'=>$r->status,

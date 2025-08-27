@@ -69,7 +69,7 @@
                                 <td class="text-center"><strong class="text-black">{{$pages->currentpage()==1?$i+1:$i+($pages->perpage()*($pages->currentpage() - 1))+1}}</strong></td>
                                 <td>
                                     <b>
-                                        <a href="{{route('pageView',$page->slug?:'no-slug')}}" target="_blank">{{$page->name}}
+                                        <a href="{{$pages->viewLink()}}" target="_blank">{{$page->name}}
                                         </a>
                                         @if($page->template)
                                         <span style="color: #ccc;">({{$page->template}})</span>

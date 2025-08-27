@@ -110,7 +110,7 @@ class WelcomeController extends Controller
       ->where('status','active')
       ->whereDate('created_at','<=',Carbon::now())
       ->limit(3)
-      ->get(['id','name','slug','short_description']);
+      ->get(['id','name','slug','type','short_description']);
 
       $latestPosts =Post::where('type',1)->latest()
       ->where('status','active')
@@ -123,7 +123,7 @@ class WelcomeController extends Controller
       ->whereDate('created_at','<=',Carbon::now())
       ->inRandomOrder()
       ->limit(8)
-      ->get(['id','name','slug','short_description','description','addedby_id','created_at']);
+      ->get(['id','name','slug','type','short_description','description','addedby_id','created_at']);
       
         $ctgThree =Attribute::whereIn('id',['2','6','7'])->where('status','active')->get();
         collect($ctgThree)->map(function($item){
@@ -132,7 +132,7 @@ class WelcomeController extends Controller
                   ->whereDate('created_at','<=',Carbon::now())
                   ->inRandomOrder()
                   ->limit(5)
-                  ->get(['id','name','slug']);
+                  ->get(['id','name','slug','type']);
             return $item;
         });
         $ctgFour =Attribute::whereIn('id',['10','11','5',3])->where('status','active')->get();
@@ -142,7 +142,7 @@ class WelcomeController extends Controller
                   ->whereDate('created_at','<=',Carbon::now())
                   ->inRandomOrder()
                   ->limit(5)
-                  ->get(['id','name','slug']);
+                  ->get(['id','name','slug','type']);
             return $item;
         });
         
@@ -153,7 +153,7 @@ class WelcomeController extends Controller
                   ->whereDate('created_at','<=',Carbon::now())
                   ->inRandomOrder()
                   ->limit(5)
-                  ->get(['id','name','slug']);
+                  ->get(['id','name','slug','type']);
             return $item;
         });
         
@@ -162,41 +162,111 @@ class WelcomeController extends Controller
                   ->whereDate('created_at','<=',Carbon::now())
                   ->inRandomOrder()
                   ->limit(5)
-                  ->get(['id','name','slug']);
+                  ->get(['id','name','slug','type']);
         
     	return view(welcomeTheme().'index',compact('latestServices','latestPosts','ctgThree','ctgFour','ctgOne','gallery','polularPosts'));
     }
 
     public function daynamicLink(Request $r,$slug,$slug2=null){
+        
+        if($slug2){
+          $post =Post::where('type',1)->where('id',$slug2)->first();
+          if(!$post){
+            return abort('404');
+          }
+
+          $relatedPosts =$post->relatedPosts()->limit(3)
+          ->select(['id','name','slug','type','short_description','addedby_id','created_at'])->get();
+          
+          $polularPosts =Post::where('type',1)
+          ->where('status','active')
+          ->whereDate('created_at','<=',Carbon::now())
+          ->inRandomOrder()
+          ->limit(8)
+          ->get(['id','name','slug','type','short_description','description','addedby_id','created_at']);
+
+          $latestPosts =Post::where('type',1)->latest()
+          ->where('status','active')
+          ->whereDate('created_at','<=',Carbon::now())
+          ->limit(8)
+          ->get(['id','name','type','slug','short_description','description','addedby_id','created_at']);
+          $comments =$post->postComments()->where('status','active')->select(['id','name','description','created_at'])->paginate(10);
+          return view(welcomeTheme().'blogs.blogView',compact('post','relatedPosts','latestPosts','polularPosts','comments'));
+
+        }
+
+        $page =Post::latest()->whereIn('type',[0,1])->where('slug',$slug)->first();
+        if($page){
+            if($page->type==1){
+              
+                $post =$page;
+                
+                $relatedPosts =$post->relatedPosts()->limit(3)->select(['id','name','slug','short_description','addedby_id','created_at'])->get();
+                $comments =$post->postComments()->where('status','active')->select(['id','name','content','created_at'])->paginate(10);
+                
+                return view(welcomeTheme().'blogs.blogView',compact('post','relatedPosts','comments'));
+            }
+            //If deferent Design or Condition Page Return by ID.
+
+            //Font Home Page
+            if($page->template=='Front Page'){
+              return redirect()->route('index');
+            }
+
+            //Contact Us Page
+            if($page->template=='Contact Us'){
+              return view(welcomeTheme().'pages.contact',compact('page'));
+            }
+
+            //About Us Page
+            if($page->template=='About Us'){
+              return view(welcomeTheme().'pages.about',compact('page'));
+            }
+            
+            //Clients Page
+            if($page->template=='All Clients'){
+              return view(welcomeTheme().'pages.clients',compact('page'));
+            }
+
+            //Latest Blog Page
+            if($page->template=='Latest Blog'){
+              $posts = Post::latest()->where('type',1)->where('status','active')
+              ->select(['id','name','slug','type','short_description','addedby_id','created_at'])
+              ->whereDate('created_at','<=',date('Y-m-d'))
+              ->paginate(10);
+              return view(welcomeTheme().'blogs.latestBlogs',compact('posts','page'));
+            }
+
+            return view(welcomeTheme().'pages.pageView',compact('page'));
+        }
+
+        $category =Attribute::latest()->where('type',6)->where('slug',$slug)->first();
+        if($category){
+          $posts = $category->activePosts()->latest()
+          ->select(['id','name','type','slug','short_description','addedby_id','created_at'])
+          ->paginate(10);
+
+          $polularPosts =Post::where('type',1)
+          ->where('status','active')
+          ->whereDate('created_at','<=',Carbon::now())
+          ->inRandomOrder()
+          ->limit(8)
+          ->get(['id','name','slug','type','short_description','description','addedby_id','created_at']);
+
+          $latestPosts =Post::where('type',1)->latest()
+          ->where('status','active')
+          ->whereDate('created_at','<=',Carbon::now())
+          ->limit(8)
+          ->get(['id','name','type','slug','short_description','description','addedby_id','created_at']);
+          
+          return view(welcomeTheme().'blogs.categoryPosts',compact('category','polularPosts','latestPosts','posts'));
+        }
+
+        if(!$page){
+          return abort('404');
+        }
+
         return $slug;
-    }
-
-    public function serviceCategory($slug){
-      $category =Attribute::latest()->where('type',0)->where('slug',$slug)->first();
-      if(!$category){
-        return abort('404');
-      }
-
-      $services = Post::whereHas('ctgServices',function($q) use($category){
-        $q->where('reff_id',$category->id);
-      })
-      ->where(function($qq){
-        $qq->where('status','active');
-      })
-      ->select(['id','name','slug','addedby_id','created_at','short_description'])
-      ->whereDate('created_at','<=',date('Y-m-d'))
-      ->paginate(12);
-
-      return view(welcomeTheme().'services.categoryServices',compact('category','services'));
-    }
-
-    public function serviceView($slug){
-      $service =Post::latest()->where('type',3)->where('slug',$slug)->first();
-      if(!$service){
-        return abort('404');
-      }
-
-      return view(welcomeTheme().'services.serviceView',compact('service'));
     }
 
     public function blogCategory($slug){

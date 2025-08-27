@@ -17,7 +17,7 @@
                 <ul class="new-tab-list">
                     @foreach($latestPosts as $i=>$post)
                     <li>
-                        <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                        <a href="{{$post->viewLink()}}">
                           <span>
                               <i class="fa fa-angles-right"></i>
                           </span>
@@ -31,7 +31,7 @@
               <ul class="new-tab-list">
                   @foreach($polularPosts as $post)
                   <li>
-                      <a href="{{route('blogView',$post->slug?:Str::slug($post->name))}}">
+                      <a href="{{$post->viewLink()}}">
                           <span>
                               <i class="fa fa-angles-right"></i>
                           </span>

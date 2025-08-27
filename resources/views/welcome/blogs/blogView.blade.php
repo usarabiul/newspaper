@@ -5,8 +5,8 @@
 <meta name="description" property="og:description" content="{!!$post->seo_description?:general()->meta_description!!}" />
 <meta name="keywords" content="{{$post->seo_keyword?:general()->meta_keyword}}" />
 <meta name="image" property="og:image" content="{{asset($post->image())}}" />
-<meta name="url" property="og:url" content="{{route('blogView',$post->slug?:'no-title')}}" />
-<link rel="canonical" href="{{route('blogView',$post->slug?:'no-title')}}">
+<meta name="url" property="og:url" content="{{$post->viewLink()}}" />
+<link rel="canonical" href="{{$post->viewLink()}}">
 @endsection @push('css')
 <style>
 
@@ -23,7 +23,7 @@
                         হোম 
                     </a></li>/
                     @foreach($post->postCategories as $ctg)
-                    <li><a href="{{route('blogCategory',$ctg->slug?:'no-title')}}">{{$ctg->name}}</a></li>
+                    <li><a href="{{$ctg->viewLink()}}">{{$ctg->name}}</a></li>
                     @endforeach
                 </ul>
 		    </div>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     @php
-                        $url = route('blogView', $post->slug ?: Str::slug($post->name));
+                        $url = $post->viewLink();
                         $title = urlencode($post->name);
                     @endphp
                     
@@ -223,7 +223,7 @@
         		        @foreach($relatedPosts as $rPost)
         		        <div class="col-md-3">
             		        <div class="featured mb-3">
-                                <a href="{{route('blogView',$rPost->slug?:Str::slug($rPost->name))}}">
+                                <a href="{{$rPost->viewLink()}}">
                                     <img src="{{asset($rPost->image())}}" alt="{{$rPost->name}}" />
                                     <span>{{$rPost->name}}</span>
                                 </a>

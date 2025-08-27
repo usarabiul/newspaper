@@ -5,8 +5,8 @@
 <meta name="description" property="og:description" content="{!!$page->seo_description?:general()->meta_description!!}" />
 <meta name="keywords" content="{{$page->seo_keyword?:general()->meta_keyword}}" />
 <meta name="image" property="og:image" content="{{asset($page->image())}}" />
-<meta name="url" property="og:url" content="{{route('pageView',$page->slug?:'no-title')}}" />
-<link rel="canonical" href="{{route('pageView',$page->slug?:'no-title')}}" />
+<meta name="url" property="og:url" content="{{$page->viewLink()}}" />
+<link rel="canonical" href="{{$page->viewLink()}}" />
 @endsection @push('css')
 <style></style>
 @endpush @section('contents')
@@ -30,9 +30,6 @@
             {!!$page->description!!}
         </div>
     </div>
-    @if($page->hasNitEditorContent->count() > 0)
-        @include(welcomeTheme().'pages.nitEditor.primary',['datas'=>$page->hasNitEditorContent])
-    @endif
 </div>
 
 @endsection @push('js') @endpush

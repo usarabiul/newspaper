@@ -105,7 +105,7 @@
                                     {{$posts->currentpage()==1?$i+1:$i+($posts->perpage()*($posts->currentpage() - 1))+1}}
                                 </td>
                                 <td>
-                                    <span><a href="{{route('blogView',$post->slug?:'no-title')}}" target="_blank">{{$post->name}}</a></span><br />
+                                    <span><a href="{{$post->viewLink()}}" target="_blank">{{$post->name}}</a></span><br />
 
                                     <span><i class="fa fa-eye" style="color: #1ab394;"></i> 0</span>
                                     @if($post->status=='active')

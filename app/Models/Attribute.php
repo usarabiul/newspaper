@@ -178,17 +178,13 @@ class Attribute extends Model
                 if($this->pageLink->template=='Front Page'){
                     return route("index");
                 }else{
-                    return route('pageView',$this->pageLink->slug);
+                    return $this->pageLink->viewLink();
                 }
             }
 
         }elseif($this->menu_type==2){
             if($this->blogCtgLink){
-                return route('blogCategory',$this->blogCtgLink->slug);
-            }
-        }elseif($this->menu_type==3){
-            if($this->serviceCtgLink){
-                return route('serviceCategory',$this->serviceCtgLink->slug);
+                return $this->blogCtgLink->viewLink();
             }
         }else{
             return $this->slug;
@@ -243,6 +239,10 @@ class Attribute extends Model
             return $this->slug;
         }
 
+    }
+
+    public function viewLink(){
+        return  route('daynamicLink',[$this->slug?:'no-slug']);
     }
     
     //********************************
