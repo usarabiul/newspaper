@@ -156,6 +156,7 @@ class PostsController extends Controller
         $check = $r->validate([
             'name' => 'required|max:191',
             'seo_title' => 'nullable|max:200',
+            'video_link' => 'nullable|max:200',
             'seo_description' => 'nullable|max:250',
             'catagoryid.*' => 'nullable|numeric',
             'tagskey' => 'nullable|max:500',
@@ -172,6 +173,7 @@ class PostsController extends Controller
         $post->seo_title=$r->seo_title;
         $post->seo_description=$r->seo_description;
         $post->seo_keyword=$r->seo_keyword;
+        $post->video_link=$r->video_link;
 
         ///////Image Uploard Start////////////
         if($r->hasFile('image')){

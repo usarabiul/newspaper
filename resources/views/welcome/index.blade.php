@@ -52,16 +52,16 @@
                 </div>
                 <div class="col-lg-5" style="padding:10px;">
                      <div class="heading-news-list">
-                            <ul>
-                                @foreach($latestPosts->skip(1) as $post)
-                                <li>
-                                    <a href="{{$post->viewLink()}}">
-                                         <img src="{{asset($post->image())}}" alt="{{$post->name}}">
-                                         <span>{{$post->name}}</span>
-                                    </a> 
-                                </li>
-                                @endforeach
-                            </ul>
+                        <ul>
+                            @foreach($latestPosts->skip(1) as $post)
+                            <li>
+                                <a href="{{$post->viewLink()}}">
+                                        <img src="{{asset($post->image())}}" alt="{{$post->name}}">
+                                        <span>{{$post->name}}</span>
+                                </a> 
+                            </li>
+                            @endforeach
+                        </ul>
                      </div>
                 </div>
             </div>
@@ -79,13 +79,16 @@
 <div class="second-line-area">
     <div class="row">
         <div class="col-lg-9 ">
+            @if($menu = menu('Large News Category'))
+            @if($hasMenu =$menu->subMenus()->whereHas('blogCtgLink',function($q){$q->where('status','active');})->where('menu_type',2)->first())
+            @if($hasCtg =$hasMenu->blogCtgLink()->first())
             <div class="second-area-news">
                 <div class="adsPost">
                     <img src="https://ready.mdrabiul.com/newspaper/demo4/assets/images/ads1.jpeg" alt="ads">
                 </div>
                 <div class="heading">
                     <span class="title">
-                        জাতীয় 
+                        {{$hasCtg->name}} 
                     </span>
                     <a href="" class="viewLink">
                        আরো
@@ -94,7 +97,7 @@
                 </div>
                 <div class="newsArea">
                     <div class="row">
-                        @foreach($polularPosts as $post)
+                        @foreach($hasCtg->activePosts()->latest()->limit(8)->get() as $post)
                         <div class="col-md-6">
                             <div class="newsGridv1">
                                 <a href="{{$post->viewLink()}}">
@@ -107,6 +110,9 @@
                     </div>
                 </div>
             </div>
+            @endif
+            @endif
+            @endif
         </div>
         <div class="col-lg-3">
             <div class="news-tab">
@@ -158,19 +164,22 @@
 <div class="ctg-news-area">
     <div class="row">
         <div class="col-lg-9">
+            @if($menu = menu('Large News Category'))
+            @if($menu->subMenus()->whereHas('blogCtgLink',function($q){$q->where('status','active');})->where('menu_type',2)->count() > 1)
             <div class="row">
-                @foreach($ctgThree as $ctg)
+                @foreach($menu->subMenus()->whereHas('blogCtgLink',function($q){$q->where('status','active');})->where('menu_type',2)->get()->skip(1) as $ctgMenu)
+                @if($hasCtg =$ctgMenu->blogCtgLink()->first())
                 <div class="col-lg-4">
                     <div class="ctgNewsArea">
                         <div class="heading">
-                            <span class="title">{{$ctg->name}}</span>
-                            <a href="{{$ctg->viewLink()}}" class="viewLink">
+                            <span class="title">{{$hasCtg->name}}</span>
+                            <a href="{{$hasCtg->viewLink()}}" class="viewLink">
                                 আরো
                                 <i class="fa-regular fa-circle-right"></i>
                             </a>
                         </div>
                         <div class="ctgNewsList">
-                            @if($news =$ctg->news->first())
+                            @if($news =$hasCtg->activePosts()->latest()->first())
                             <div class="featured">
                                 <a href="{{$news->viewLink()}}">
                                     <img src="{{asset($news->image())}}" alt="{{$news->name}}" />
@@ -179,7 +188,7 @@
                             </div>
                             @endif
                             <ul>
-                                @foreach($ctg->news->skip(1) as $post)
+                                @foreach($hasCtg->activePosts()->latest()->limit(5)->get()->skip(1) as $post)
                                 <li>
                                     <a href="{{$post->viewLink()}}">
                                         <img src="{{asset($post->image())}}" alt="{{$post->name}}">
@@ -191,8 +200,12 @@
                         </div>
                     </div>
                 </div>
+                @endif
+
                 @endforeach
             </div>
+            @endif
+            @endif
         </div>
         <div class="col-lg-3">
             <div class="sidebarAds">
@@ -216,19 +229,20 @@
                 </a>
             </div>
         </div>
-        @foreach($ctgFour as $ctg)
+        @if($menu = menu('Multi Category Grid'))
+        @foreach($menu->subMenus()->whereHas('blogCtgLink',function($q){$q->where('status','active');})->where('menu_type',2)->get() as $ctgMenu)
+        @if($hasCtg =$ctgMenu->blogCtgLink()->first())
         <div class="col-lg-3">
             <div class="ctgNewsArea">
                 <div class="heading">
-                    <span class="title">{{$ctg->name}}</span>
-                    <a href="{{$ctg->viewLink()}}" class="viewLink">
+                    <span class="title">{{$hasCtg->name}}</span>
+                    <a href="{{$hasCtg->viewLink()}}" class="viewLink">
                        আরো
                     <i class="fa-regular fa-circle-right"></i>
                     </a>
                 </div>
                 <div class="ctgNewsList">
-                    
-                    @if($news =$ctg->news->first())
+                    @if($news =$hasCtg->activePosts()->latest()->first())
                     <div class="featured">
                         <a href="{{$news->viewLink()}}">
                             <img src="{{asset($news->image())}}" alt="{{$news->name}}" />
@@ -237,7 +251,7 @@
                     </div>
                     @endif
                     <ul>
-                        @foreach($ctg->news->skip(1) as $post)
+                        @foreach($hasCtg->activePosts()->latest()->limit(5)->get()->skip(1) as $post)
                         <li>
                             <a href="{{$post->viewLink()}}">
                                 <img src="{{asset($post->image())}}" alt="{{$post->name}}">
@@ -249,30 +263,36 @@
                 </div>
             </div>
         </div>
+        @endif
         @endforeach
+        @endif
     </div>
 </div>
 
 <div class="galleryNewSection">
     <div class="row">
         <div class="col-lg-9">
+            @if($menu = menu('Gallery Category Grid'))
             <div class="row">
+                @if($hasMenu =$menu->subMenus()->whereHas('blogCtgLink',function($q){$q->where('status','active');})->where('menu_type',2)->first())
+                @if($hasCtg =$hasMenu->blogCtgLink()->first())
                 <div class="col-lg-8">
-                    
                     <div class="gallerySlider">
                         <div class="heading">
                             <span class="title">
-                                গ্যালারি 
+                                {{$hasCtg->name}} 
                             </span>
                         </div>
-                        <div id="carouselExampleDark" class="carousel carousel-light slide" style="margin-top:10px;">
+                        @if($hasCtg->activePosts()->latest()->count() > 0)
+                        
+                        <div id="carouselG" class="carousel carousel-light slide" style="margin-top:10px;">
                           <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            @foreach($hasCtg->activePosts()->latest()->limit(8)->get() as $g=>$post)
+                            <button type="button" data-bs-target="#carouselG" data-bs-slide-to="{{$g}}" class="{{$g==0?'active':''}}" ></button>
+                            @endforeach
                           </div>
                           <div class="carousel-inner">
-                            @foreach($gallery as $i=>$gall)
+                            @foreach($hasCtg->activePosts()->latest()->limit(8)->get() as $i=>$gall)
                             <div class="carousel-item {{$i==0?'active':''}}" data-bs-interval="10000">
                               <a href="{{$gall->viewLink()}}"><img src="{{asset($gall->image())}}" class="d-block w-100" alt="{{$gall->name}}"></a>
                               <div class="carousel-caption d-none d-md-block">
@@ -281,30 +301,35 @@
                             </div>
                             @endforeach
                           </div>
-                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselG" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                           </button>
-                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselG" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                           </button>
                         </div>
+                        @endif
                     </div>
                 </div>
-                @foreach($ctgOne as $ctg)
+                @endif
+                @endif
+                
+                @foreach($menu->subMenus()->whereHas('blogCtgLink',function($q){$q->where('status','active');})->where('menu_type',2)->get()->skip(1) as $hasMenu)
+                @if($hasCtg =$hasMenu->blogCtgLink()->first())
                 <div class="col-lg-4">
                     <div class="galleryNewsBar">
                         <div class="heading">
-                            <span class="title">{{$ctg->name}}</span>
-                            <a href="{{$ctg->viewLink()}}" class="viewLink">
+                            <span class="title">{{$hasCtg->name}}</span>
+                            <a href="{{$hasCtg->viewLink()}}" class="viewLink">
                                আরো
                             <i class="fa-regular fa-circle-right"></i>
                             </a>
                         </div>
                         <div class="galleryNewsList">
                             <ul> 
-                                @foreach($ctg->news as $post)
+                                @foreach($hasCtg->activePosts()->latest()->limit(5)->get() as $post)
                                 <li>
                                     <a href="{{$post->viewLink()}}">
                                         <img src="{{asset($post->image())}}" alt="{{$post->name}}">
@@ -316,8 +341,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
+            @endif
         </div>
         <div class="col-lg-3">
             <div class="sidebarAds">

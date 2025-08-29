@@ -114,6 +114,7 @@ class WelcomeController extends Controller
 
       $latestPosts =Post::where('type',1)->latest()
       ->where('status','active')
+      ->where('featured',true)
       ->whereDate('created_at','<=',Carbon::now())
       ->limit(8)
       ->get(['id','name','type','slug','short_description','description','addedby_id','created_at']);

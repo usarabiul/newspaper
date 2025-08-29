@@ -72,11 +72,6 @@
 
                             <!--Post Category Items -->
                             @include(adminTheme().'menus.includes.postCategoryList')
-                            
-
-                            <!--Service Category Items -->
-                            @include(adminTheme().'menus.includes.serviceCategoryList')
-                            
 
                         </div>
                     </div>
@@ -113,6 +108,9 @@
                                             <option value="Header Menus" {{$parent->location=='Header Menus'?'selected':''}}>Header Menus</option>
                                             <option value="Footer Two" {{$parent->location=='Footer Two'?'selected':''}}>Footer Two</option>
                                             <option value="Footer Three" {{$parent->location=='Footer Three'?'selected':''}}>Footer Three</option>
+                                            <option value="Large News Category" {{$parent->location=='Large News Category'?'selected':''}}>Large News Category</option>
+                                            <option value="Multi Category Grid" {{$parent->location=='Multi Category Grid'?'selected':''}}>Multi Category Grid</option>
+                                            <option value="Gallery Category Grid" {{$parent->location=='Gallery Category Grid'?'selected':''}}>Gallery Category Grid</option>
                                         </select>
                                     </div>
                                 </div>

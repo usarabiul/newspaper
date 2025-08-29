@@ -114,7 +114,6 @@ class Attribute extends Model
             $qq->where('status','active');
           })
           ->whereDate('created_at','<=',date('Y-m-d'));
- 
     }
 
     public function ctgPosts(){

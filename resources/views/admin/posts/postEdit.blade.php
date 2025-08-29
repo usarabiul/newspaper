@@ -131,7 +131,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Post Image</label>
+                            <label class="form-label">Post Image (900X600 px)</label>
                             <input type="file" name="image" class="form-control {{$errors->has('image')?'error':''}}" />
                             @if ($errors->has('image'))
                             <div class="invalid-feedback">{{ $errors->first('image') }}</div>
@@ -144,16 +144,10 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Post Banner</label>
-                            <input type="file" name="banner" class="form-control {{$errors->has('banner')?'error':''}}" />
-                            @if ($errors->has('banner'))
-                            <div class="invalid-feedback">{{ $errors->first('banner') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <img src="{{asset($post->banner())}}" style="max-width: 200px;" />
-                            @if($post->bannerFile)
-                            <a href="{{route('admin.mediesDelete',$post->bannerFile->id)}}" class="mediaDelete" style="color: red;"><i class="fa fa-trash"></i></a>
+                            <label class="form-label">Video Link (Youbute/upload Mp4)</label>
+                            <input type="text" name="video_link" placeholder="Ente Link" class="form-control {{$errors->has('video_link')?'error':''}}" />
+                            @if ($errors->has('video_link'))
+                            <div class="invalid-feedback">{{ $errors->first('video_link') }}</div>
                             @endif
                         </div>
                     </div>
@@ -175,11 +169,9 @@
                                 <li>
                                     <label>
                                         <input type="checkbox" class="form-check-input" name="categoryid[]" value="{{$ctg->id}}"
-
                                         @foreach($post->postCtgs as $postctg)
                                         {{$postctg->reff_id==$ctg->id?'checked':''}} 
                                         @endforeach
-                                        
                                         >
                                         {{$ctg->name}}
                                     </label>
@@ -228,7 +220,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label class="form-label">Featured</label>
+                                <label class="form-label">Highlight </label>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="featured" {{$post->featured?'checked':''}} >Active
