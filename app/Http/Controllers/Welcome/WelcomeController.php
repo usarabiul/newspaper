@@ -245,7 +245,7 @@ class WelcomeController extends Controller
         if($category){
           $posts = $category->activePosts()->latest()
           ->select(['id','name','type','slug','short_description','addedby_id','created_at'])
-          ->paginate(10);
+          ->paginate(15);
 
           $polularPosts =Post::where('type',1)
           ->where('status','active')
@@ -266,7 +266,6 @@ class WelcomeController extends Controller
         if(!$page){
           return abort('404');
         }
-
         return $slug;
     }
 
@@ -278,7 +277,7 @@ class WelcomeController extends Controller
 
       $posts = $category->activePosts()->latest()
       ->select(['id','name','slug','short_description','addedby_id','created_at'])
-      ->paginate(10);
+      ->paginate(6);
 
       return view(welcomeTheme().'blogs.categoryPosts',compact('category','posts'));
     }
@@ -398,7 +397,6 @@ class WelcomeController extends Controller
 
 
     }
-
 
     public function pageView($slug){
     

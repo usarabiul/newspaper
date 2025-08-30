@@ -28,214 +28,62 @@
     		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     		    <div class="row">
     		        <div class="col-md-6">
-    		            @if($new = $posts->first())
+    		            @foreach($posts->take(1) as $post)
     		             <div class="ctgFeaturedNews">
     		                 <div class="image">
-    		                     <a href="{{$new->viewLink()}}">
-    		                         <img src="{{asset($new->image())}}">
+    		                     <a href="{{$post->viewLink()}}">
+    		                         <img src="{{asset($post->image())}}">
     		                     </a>
     		                 </div>
     		                 <div class="text">
     		                     <h3>
-    		                         <a href="{{$new->viewLink()}}">
-    		                             {{$new->name}}
+    		                         <a href="{{$post->viewLink()}}">
+    		                             {{$post->name}}
     		                         </a>
     		                     </h3>
-    		                     @if($new->short_description)
+    		                     @if($post->short_description)
                                 <p>
-                                   {{Str::limit($new->short_description,200)}}
+                                   {{Str::limit($post->short_description,200)}}
                                 </p>
                                 @endif
     		                 </div>
     		             </div>
-    		             @endif
+    		             @endforeach
     		        </div>
     		        <div class="col-md-6">
     		            <div class="row">
+                            @foreach($posts->skip(1)->take(4) as $post)
     		                <div class="col-md-6">
-    		                    @if($new = $posts->first())
             		             <div class="ctgFeaturedNews">
             		                 <div class="image">
-            		                     <a href="{{$new->viewLink()}}">
-            		                         <img src="{{asset($new->image())}}">
+            		                     <a href="{{$post->viewLink()}}">
+            		                         <img src="{{asset($post->image())}}">
             		                     </a>
             		                 </div>
             		                 <div class="title">
-        		                         <a href="{{$new->viewLink()}}">
-        		                             {{$new->name}}
+        		                         <a href="{{$post->viewLink()}}">
+        		                             {{$post->name}}
         		                         </a>
             		                 </div>
             		             </div>
-            		             @endif
     		                </div>
-    		                <div class="col-md-6">
-    		                    @if($new = $posts->first())
-            		             <div class="ctgFeaturedNews">
-            		                 <div class="image">
-            		                     <a href="{{$new->viewLink()}}">
-            		                         <img src="{{asset($new->image())}}">
-            		                     </a>
-            		                 </div>
-            		                 <div class="title">
-        		                         <a href="{{$new->viewLink()}}">
-        		                             {{$new->name}}
-        		                         </a>
-            		                 </div>
-            		             </div>
-            		             @endif
-    		                </div>
-    		                <div class="col-md-6">
-    		                    @if($new = $posts->first())
-            		             <div class="ctgFeaturedNews">
-            		                 <div class="image">
-            		                     <a href="{{$new->viewLink()}}">
-            		                         <img src="{{asset($new->image())}}">
-            		                     </a>
-            		                 </div>
-            		                 <div class="title">
-        		                         <a href="{{$new->viewLink()}}">
-        		                             {{$new->name}}
-        		                         </a>
-            		                 </div>
-            		             </div>
-            		             @endif
-    		                </div>
-    		                <div class="col-md-6">
-    		                    @if($new = $posts->first())
-            		             <div class="ctgFeaturedNews">
-            		                 <div class="image">
-            		                     <a href="{{$new->viewLink()}}">
-            		                         <img src="{{asset($new->image())}}">
-            		                     </a>
-            		                 </div>
-            		                 <div class="title">
-        		                         <a href="{{$new->viewLink()}}">
-        		                             {{$new->name}}
-        		                         </a>
-            		                 </div>
-            		             </div>
-            		             @endif
-    		                </div>
+                            @endforeach
     		            </div>
     		        </div>
     		    </div>
     		</div>
     		<div class="col-lg-1"></div>
     		<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-                @foreach($posts as $post)
+                @foreach($posts->skip(5)->take(10) as $post)
                 <div class="ctgListGrid">
                     <div class="row">
                         <div class="col-md-3">
-                            <a href="{{$new->viewLink()}}"><img src="{{asset($post->image())}}" alt="{{$post->name}}"/></a>
+                            <a href="{{$post->viewLink()}}"><img src="{{asset($post->image())}}" alt="{{$post->name}}"/></a>
                         </div>
                         <div class="col-md-9">
                             <div class="text">
                                 <h4>
-                                <a href="{{$new->viewLink()}}">
-                                    {{$post->name}}
-                                </a>
-                                </h4>
-                                @if($post->short_description)
-                                <p>
-                                   {{Str::limit($post->short_description,200)}}
-                                </p>
-                                @endif
-                                <i>
-                                    {{formatDateOutputBN($post->created_at,'d F, Y')}}
-                                </i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @foreach($posts as $post)
-                <div class="ctgListGrid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="{{$new->viewLink()}}"><img src="{{asset($post->image())}}" alt="{{$post->name}}"/></a>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="text">
-                                <h4>
-                                <a href="{{$new->viewLink()}}">
-                                    {{$post->name}}
-                                </a>
-                                </h4>
-                                @if($post->short_description)
-                                <p>
-                                   {{Str::limit($post->short_description,200)}}
-                                </p>
-                                @endif
-                                <i>
-                                    {{formatDateOutputBN($post->created_at,'d F, Y')}}
-                                </i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @foreach($posts as $post)
-                <div class="ctgListGrid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="{{$new->viewLink()}}"><img src="{{asset($post->image())}}" alt="{{$post->name}}"/></a>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="text">
-                                <h4>
-                                <a href="{{$new->viewLink()}}">
-                                    {{$post->name}}
-                                </a>
-                                </h4>
-                                @if($post->short_description)
-                                <p>
-                                   {{Str::limit($post->short_description,200)}}
-                                </p>
-                                @endif
-                                <i>
-                                    {{formatDateOutputBN($post->created_at,'d F, Y')}}
-                                </i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @foreach($posts as $post)
-                <div class="ctgListGrid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="{{$new->viewLink()}}"><img src="{{asset($post->image())}}" alt="{{$post->name}}"/></a>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="text">
-                                <h4>
-                                <a href="{{$new->viewLink()}}">
-                                    {{$post->name}}
-                                </a>
-                                </h4>
-                                @if($post->short_description)
-                                <p>
-                                   {{Str::limit($post->short_description,200)}}
-                                </p>
-                                @endif
-                                <i>
-                                    {{formatDateOutputBN($post->created_at,'d F, Y')}}
-                                </i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @foreach($posts as $post)
-                <div class="ctgListGrid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="{{$new->viewLink()}}"><img src="{{asset($post->image())}}" alt="{{$post->name}}"/></a>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="text">
-                                <h4>
-                                <a href="{{$new->viewLink()}}">
+                                <a href="{{$post->viewLink()}}">
                                     {{$post->name}}
                                 </a>
                                 </h4>
