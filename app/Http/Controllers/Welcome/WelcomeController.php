@@ -169,7 +169,7 @@ class WelcomeController extends Controller
     }
 
     public function daynamicLink(Request $r,$slug,$slug2=null){
-        
+        return $slug2;
         if($slug2){
           $post =Post::where('type',1)->where('id',$slug2)->first();
           if(!$post){
@@ -457,6 +457,34 @@ class WelcomeController extends Controller
 
       return view(welcomeTheme().'pages.pageView',compact('page'));
 
+    }
+
+    public function archive($date){
+        try {
+            $day = Carbon::parse($date);
+            $invalidDate = true;
+        } catch (\Exception $e) {
+            $day = null;
+            $invalidDate = false;
+        }
+        
+        $categories =Attribute::where('type',6)->where('status','active')->select(['id','name'])->get();
+
+    
+        collect($categories)->map(function($item){
+            $num =rand(5,9);
+            
+            $item->news  =Post::where('type',1)
+                  ->where('status','active')
+                  ->whereDate('created_at','<=',Carbon::now())
+                  ->inRandomOrder()
+                  ->limit($num)
+                  ->get(['id','name','slug']);
+            
+            return $item;
+        });
+
+        return view(welcomeTheme() . 'blogs.archive', compact('day', 'invalidDate','categories'));
     }
 
     public function contactMail(Request $r){

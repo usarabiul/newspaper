@@ -20,7 +20,7 @@ Route::get('/switch/{lang?}',[WelcomeController::class,'language'])->name('langu
 Route::get('/geo/filter/{id}',[WelcomeController::class,'geo_filter'])->name('geo_filter');
 
 Route::get('/author/{id}/{slug}',[WelcomeController::class,'blogAuthor'])->name('blogAuthor');
-Route::get('/archives/{slug}',[WelcomeController::class,'blogArchives'])->name('blogArchives');
+Route::get('/archive/{slug}',[WelcomeController::class,'archive'])->name('archive');
 Route::post('/comments/{slug}',[WelcomeController::class,'blogComments'])->name('blogComments');
 Route::get('/topic/{tag}',[WelcomeController::class,'blogTag'])->name('topic');
 
