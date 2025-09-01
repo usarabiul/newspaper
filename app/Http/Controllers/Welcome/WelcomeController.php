@@ -513,20 +513,27 @@ class WelcomeController extends Controller
     }
 
     public function search(Request $r){
-      
-      if($r->search){
 
-        $posts =Post::where('status','active')
+        $posts =Post::latest()->where('type',1)->where('status','active')
         ->where(function($q) use($r){
-          $q->where('search_key','LIKE','%'.$r->search.'%');
+          $q->where('name','LIKE','%'.$r->search.'%');
         })
         ->paginate(24);
 
-      }else{
-        $posts = array();
-      }
+        $polularPosts =Post::where('type',1)
+          ->where('status','active')
+          ->whereDate('created_at','<=',Carbon::now())
+          ->inRandomOrder()
+          ->limit(8)
+          ->get(['id','name','slug','type','short_description','description','addedby_id','created_at']);
 
-      return view(welcomeTheme().'search');
+          $latestPosts =Post::where('type',1)->latest()
+          ->where('status','active')
+          ->whereDate('created_at','<=',Carbon::now())
+          ->limit(8)
+          ->get(['id','name','type','slug','short_description','description','addedby_id','created_at']);
+
+      return view(welcomeTheme().'blogs.blogSearch',compact('posts','polularPosts','latestPosts'));
 
     }
 
