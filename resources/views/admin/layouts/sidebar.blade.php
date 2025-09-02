@@ -50,7 +50,7 @@
                     <span class="nav-text">General Widget</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{route('admin.clients')}}" class="{{Request::is('admin/clients*')? 'mm-active' : ''}}" >Clients</a></li>
+                    <li><a href="{{route('admin.clients')}}" class="{{Request::is('admin/clients*')? 'mm-active' : ''}}" >Ads management</a></li>
                     <li><a href="{{route('admin.brands')}}" class="{{Request::is('admin/brands*')? 'mm-active' : ''}}">Brands</a></li>
                     <li><a href="{{route('admin.sliders')}}" class="{{Request::is('admin/sliders*')? 'mm-active' : ''}}">Sliders</a></li>
                     <li><a href="{{route('admin.galleries')}}" class="{{Request::is('admin/galleries*')? 'mm-active' : ''}}">Galleries</a></li>

@@ -169,7 +169,7 @@ class WelcomeController extends Controller
     }
 
     public function daynamicLink(Request $r,$slug,$slug2=null){
-        return $slug2;
+ 
         if($slug2){
           $post =Post::where('type',1)->where('id',$slug2)->first();
           if(!$post){
